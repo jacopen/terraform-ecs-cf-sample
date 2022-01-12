@@ -4,8 +4,8 @@ resource "aws_cloudfront_distribution" "main" {
   comment         = "cloudfront test"
  
   origin {
-    domain_name =    #FIXME!
-    origin_id   = "" #FIXME!
+    domain_name = aws_lb.main.dns_name
+    origin_id   = "jacopen-ecs"
  
     custom_origin_config {
       http_port                = 80
@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "main" {
   default_cache_behavior {
     allowed_methods  = ["HEAD", "DELETE", "POST", "GET", "OPTIONS", "PUT", "PATCH"]
     cached_methods   = ["HEAD", "GET", "OPTIONS"]
-    target_origin_id = "" #FIXME!
+    target_origin_id = "jacopen-ecs"
  
     forwarded_values {
       query_string = true
